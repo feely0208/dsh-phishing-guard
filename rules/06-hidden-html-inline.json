@@ -1,0 +1,14 @@
+{
+  "id": "PHISH-HIDDEN-HTML-INLINE",
+  "title": "HTML 隐藏样式与指令文字出现在同一行",
+  "severity": "high",
+  "source": "WHATWG HTML 标准 · style 属性（CSS display / visibility / opacity / color / background-color）；OWASP Top 10 for LLM Applications 2025 · LLM01: Prompt Injection（间接注入：内容对人不可见、对解析器可见）；MITRE ATLAS · AML.T0051 LLM Prompt Injection。白底白字与 display:none 是钓鱼邮件里隐藏文字的经典做法，移到知识库文档上就是对人不可见、对 agent 可见。",
+  "advice": "这一段 HTML 同时具备两个特征：视觉上被隐藏（display:none、白底白字、字号 0 等），以及一段让 agent 服从的指令。人用浏览器打开看不到这段文字，但抓取网页喂给 agent 时它会被完整读到。请用「查看源代码」而不是「看页面」来核对这段内容，确认是不是你自己写的；不是就删掉。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(?:display\\s*:\\s*none|visibility\\s*:\\s*hidden|font-size\\s*:\\s*0(?:\\s*(?:px|em|rem|%))?|opacity\\s*:\\s*0(?![.\\d])|color\\s*:\\s*(?:#fff(?:fff)?|white)(?![0-9a-fA-F])[^>\\n]{0,120}background(?:-color)?\\s*:\\s*(?:#fff(?:fff)?|white)|background(?:-color)?\\s*:\\s*(?:#fff(?:fff)?|white)[^>\\n]{0,120}color\\s*:\\s*(?:#fff(?:fff)?|white))[^\\n]{0,160}(?:忽略|无视|不要告诉|不要提及|不得告知|从现在起|你现在是|ignore|disregard|do not (?:tell|mention|reveal)|you are now)",
+    "flags": "i",
+    "exts": [".html", ".htm"],
+    "max": 20
+  }
+}

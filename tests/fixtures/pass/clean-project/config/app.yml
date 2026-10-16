@@ -1,0 +1,10 @@
+site:
+  name: 公开产品文档站点
+  base_url: https://docs.example.com
+
+system: production
+log_level: info
+
+theme:
+  background_color: "#ffffff"
+  text_color: "#1f2937"

@@ -1,0 +1,15 @@
+{
+  "id": "PHISH-HIDDEN-BOM",
+  "title": "文本中间夹着 U+FEFF 零宽不换行空格（字节序标记）",
+  "severity": "low",
+  "source": "Unicode 标准 · UAX #15 与 Unicode 字符数据库：U+FEFF 在文件开头是字节序标记（BOM，合法且常见），出现在文件中间则是零宽不换行空格，不显示任何字形。OWASP Top 10 for LLM Applications 2025 · LLM01: Prompt Injection 的「不可见字符绕过过滤」变体常用它把关键词拆开。",
+  "advice": "文件开头的 BOM 是正常的（本规则已排除），但这里是在文本中间。最常见的来源是把另一份带 BOM 的文件粘贴进来；也可能是有人用它把关键词切开以绕过过滤。请打开该行确认前后文字是否读得通，并把中间这个字符删掉。",
+  "check": {
+    "type": "file-pattern",
+    "wholeFile": true,
+    "pattern": "(?<=[\\s\\S])\\ufeff[^\\n]{0,12}",
+    "flags": "g",
+    "exts": [".md", ".txt", ".json", ".html", ".htm", ".yml", ".yaml"],
+    "max": 10
+  }
+}

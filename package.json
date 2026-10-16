@@ -1,0 +1,59 @@
+{
+  "name": "@deepwhale-cn/dsh-phishing-guard",
+  "version": "0.1.0",
+  "description": "agent 读到的内容里，有没有人在给它下命令",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "plugin",
+    "skill",
+    "security",
+    "guard",
+    "phishing-guard"
+  ],
+  "files": [
+    "lib",
+    "bin",
+    "rules",
+    "skill",
+    "cordis.patch.yml",
+    "tests/fixtures",
+    "README.md",
+    "LICENSE",
+    "docs"
+  ],
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "dsh-phishing-guard": "./bin/cli.mjs"
+  },
+  "engines": {
+    "dsh": ">=0.1.0-rc.6 <0.3.0",
+    "node": ">=18"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "@deepwhale-cn/dsh-guard-core": "^0.4.3"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-skill": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feely0208/dsh-phishing-guard.git"
+  },
+  "homepage": "https://www.deepwhale.org.cn/skills.html",
+  "bugs": {
+    "url": "https://github.com/feely0208/dsh-phishing-guard/issues"
+  }
+}

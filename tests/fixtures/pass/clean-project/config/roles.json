@@ -1,0 +1,7 @@
+{
+  "chat": {
+    "role": "system",
+    "system": "linux"
+  },
+  "note": "role 字段是聊天标记，不是给 agent 的指令"
+}

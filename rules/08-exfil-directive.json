@@ -1,0 +1,14 @@
+{
+  "id": "PHISH-EXFIL-DIRECTIVE",
+  "title": "文本里有「把…发送到 某个网址」这类外发指令",
+  "severity": "high",
+  "source": "OWASP Top 10 for LLM Applications 2025 · LLM01: Prompt Injection（间接注入里夹带外发指令）与 LLM06: Sensitive Information Disclosure；MITRE ATLAS · AML.T0051 LLM Prompt Injection / AML.T0057 LLM Data Leakage。特点是「把 / 将 + 某样东西 + 发送到 + 地址」这个句式同时给了动作和收件人。",
+  "advice": "这一行是一句完整的「把东西发到这个地址」的指令，而且给了网址。放在知识库、邮件模板或抓来的网页里，读到它的 agent 有可能真的照着做。请核对域名是不是你们自己的资产：不是的话，删掉这段内容，并检查这个文件是谁、什么时候放进来的。域名带 -cdn / -collector / -verify 这类后缀又不属于你们时，尤其要当心。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(?:把|将)[^\\n]{1,32}(?:发送|上传|发到|外发|回传|转发|提交|传给)[^\\n]{0,12}(?:到|至|给)[^\\n]{0,12}(?:https?|ftp)://|(?:把|将)[^\\n]{1,32}(?:发送|上传|发到|外发|回传|转发|提交|传给)[^\\n]{0,12}(?:到|至|给)[^\\n]{0,12}(?<![@\\w.\\-])(?:[a-z0-9\\-]+\\.)+[a-z]{2,6}|(?:send|upload|post|forward|exfiltrate|copy)[^\\n]{0,32}\\bto\\b[^\\n]{0,12}(?:https?|ftp)://",
+    "flags": "i",
+    "exts": [".md", ".txt", ".json", ".html", ".htm", ".yml", ".yaml"],
+    "max": 30
+  }
+}

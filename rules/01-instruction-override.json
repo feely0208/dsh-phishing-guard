@@ -1,0 +1,14 @@
+{
+  "id": "PHISH-INSTR-OVERRIDE",
+  "title": "出现「忽略之前的指令」这类指令覆盖句式",
+  "severity": "high",
+  "source": "OWASP Top 10 for LLM Applications 2025 · LLM01: Prompt Injection（直接注入与间接注入）；NIST AI 100-2 · Adversarial Machine Learning: A Taxonomy of Attacks and Mitigations（提示注入章节）；MITRE ATLAS · AML.T0051 LLM Prompt Injection。这类写法的共同点是让读到它的模型放弃原有任务、改从被扫内容。",
+  "advice": "请自己把这一行读一遍：它是不是在让读到这段文字的 agent 放弃原任务、改做别的事。如果这是你自己的提示词模板，命中是正常的；如果它来自外部文档、知识库条目、邮件模板或网页抓取内容，请删掉这一段，或把该文件从喂给 agent 的语料里排除。被「」『』“”‘’或反引号紧贴包住的引述不计入（那通常是在讲解这类攻击）。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(?<![「『“”‘’`])(?:忽略|无视|忘掉|忘记|抛弃|抛开)掉?[^\\n]{0,16}(?:指令|规则|提示词|系统提示|设定|命令|限制|约束|安全策略)|(?<![「『“”‘’`])(?:ignore|disregard|forget|override|bypass)\\s+(?:(?:all|any)\\s+(?:(?:previous|prior|above|earlier|preceding)\\s+)?(?:instructions?|rules?|prompts?|guidelines?|directives?|constraints?)|(?:previous|prior|above|earlier|preceding|system|developer|your|the\\s+above)\\s+(?:instructions?|rules?|prompts?|guidelines?|directives?|constraints?))|(?<![「『“”‘’`])(?:你现在是|从现在起你(?:就)?是)[^\\n]{0,24}(?:无限制|不受(?:任何)?限制|没有(?:任何)?限制|无约束|最高权限|管理员权限|root权限|新的?(?:AI|助手|角色|人格)|另一个人格|unrestricted|jailbroken)",
+    "flags": "i",
+    "exts": [".md", ".txt", ".json", ".html", ".htm", ".yml", ".yaml"],
+    "max": 30
+  }
+}

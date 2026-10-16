@@ -1,0 +1,14 @@
+{
+  "id": "PHISH-HIDDEN-INWORD",
+  "title": "不可见字符插在词中间 —— 一个词被拆成了两半",
+  "severity": "high",
+  "source": "Unicode 标准 · UAX #15（Unicode Normalization Forms）与 Unicode 字符数据库：U+200B ZERO WIDTH SPACE、U+200C ZERO WIDTH NON-JOINER、U+200D ZERO WIDTH JOINER、U+2060 WORD JOINER 都是不产生可见字形的格式字符；OWASP Top 10 for LLM Applications 2025 · LLM01: Prompt Injection 列出「用不可见字符绕过关键词过滤」为间接注入的常见变体。",
+  "advice": "这一行的某个词中间夹了一个看不见的字符，人眼看到的是「忽略」，程序按字节读到的却是「忽」+ 不可见字符 +「略」。正常写作不会这样断词，通常是为了绕过关键词过滤或文本审查。请用编辑器打开对应行、开启「显示不可见字符」，或直接删掉这一段：如果这是外部来的内容，它带着刻意隐藏的痕迹。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(?:[A-Za-z\\u4e00-\\u9fa5][\\u200b\\u200c\\u200d\\u2060]|[\\u200b\\u200c\\u200d\\u2060][A-Za-z\\u4e00-\\u9fa5])",
+    "flags": "g",
+    "exts": [".md", ".txt", ".json", ".html", ".htm", ".yml", ".yaml"],
+    "max": 30
+  }
+}

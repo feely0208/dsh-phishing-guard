@@ -1,0 +1,14 @@
+{
+  "id": "PHISH-ROLE-MARKER",
+  "title": "内容里出现 system 角色标记并紧接着服从式指令",
+  "severity": "high",
+  "source": "OWASP Top 10 for LLM Applications 2025 · LLM01: Prompt Injection（把内容伪装成系统消息是直接注入的常见做法）；MITRE ATLAS · AML.T0051 LLM Prompt Injection / AML.T0054 LLM Jailbreak；OpenAI 与 Anthropic 官方文档中的聊天标记（chat markup）：system 角色承载的是开发者设定的系统提示，普通内容里出现它就是在冒充更高优先级。",
+  "advice": "被扫内容里出现了 `system:` 行或 <system> 标签，后面紧跟「你现在是… / 忽略…」这类指令。它的目的是让读到的模型把这些文字当成系统级设定，而不是普通资料。请确认这是不是你自己写的提示词模板：如果你仓库里本来就有系统提示词文件，命中属于正常；如果它出现在知识库文档、网页、邮件或第三方数据里，请删掉这一段。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(?:<\\s*system\\s*>|<\\|\\s*im_start\\s*\\|>\\s*system|<\\|\\s*system\\s*\\|>|^\\s*system\\s*:\\s*(?:you are now|ignore|disregard|from now on|从现在起|你现在是|忽略|无限制|unrestricted))",
+    "flags": "i",
+    "exts": [".md", ".txt", ".json", ".html", ".htm", ".yml", ".yaml"],
+    "max": 20
+  }
+}

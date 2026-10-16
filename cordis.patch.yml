@@ -1,0 +1,4 @@
+# @deepwhale-cn/dsh-phishing-guard 的组合层
+- insert:
+    - id: phishing-guard
+      name: '@deepwhale-cn/dsh-phishing-guard'

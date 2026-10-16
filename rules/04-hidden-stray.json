@@ -1,0 +1,14 @@
+{
+  "id": "PHISH-HIDDEN-STRAY",
+  "title": "出现游离的不可见字符（零宽空格 / 连接符）",
+  "severity": "low",
+  "source": "Unicode 标准 · Unicode 字符数据库（UCD）格式字符分类 Cf：U+200B ZERO WIDTH SPACE、U+200C ZERO WIDTH NON-JOINER、U+200D ZERO WIDTH JOINER、U+2060 WORD JOINER 均不显示字形。多数情况来自复制粘贴（网页、PDF、Office 富文本），少数情况用于隐藏信息；OWASP Top 10 for LLM Applications 2025 · LLM01 将「不可见字符」列为提示注入的载体之一。",
+  "advice": "这一行有一个看不见的字符，但不在词的中间，所以更像是从网页或 PDF 复制粘贴带进来的。它本身未必有害，但会干扰 diff、搜索和字符串比较（同一个词会变得不相等）。建议删掉它；如果这份内容来自外部，顺手核对一下周围有没有被改过的句子。（注：波斯语、印地语等文字里 ZWNJ 是正常用法，那种不在此列 —— 本规则只算英文/汉字旁边的游离字符。）",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "[^\\n]{0,12}(?<![A-Za-z\\u4e00-\\u9fa5])[\\u200b\\u200c\\u200d\\u2060](?![A-Za-z\\u4e00-\\u9fa5])[^\\n]{0,12}",
+    "flags": "g",
+    "exts": [".md", ".txt", ".json", ".html", ".htm", ".yml", ".yaml"],
+    "max": 30
+  }
+}

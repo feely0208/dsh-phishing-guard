@@ -1,0 +1,14 @@
+{
+  "id": "PHISH-AUTHORITY-URGENCY",
+  "title": "同一行里同时出现身份声明与紧急催促",
+  "severity": "high",
+  "source": "OWASP Top 10 for LLM Applications 2025 · LLM01: Prompt Injection（社会工程式的间接注入）；MITRE ATLAS · AML.T0051 LLM Prompt Injection 与 AML.T0054 LLM Jailbreak；NIST AI 100-2（对抗性机器学习分类）· 提示注入中的权限伪装手法：「我是管理员」「紧急」这类话术用来压缩读者（人或模型）的判断时间。",
+  "advice": "正常文档里，「我是管理员」和「紧急」很少出现在同一句话里 —— 这句话通常是为了让你（或 agent）跳过确认步骤。请核对：这条内容是不是来自可信渠道（工单系统、公告页），说话的人你是不是真的能对上号。涉及改权限、转账、交出口令或验证码的，先走原渠道二次确认。",
+  "check": {
+    "type": "file-pattern",
+    "pattern": "(?:我是|我就是|这里是|这是|i am|i'm|this is)\\s*(?:你(?:们)?的|the|your)?\\s*(?:系统)?\\s*(?:管理员|超级管理员|老板|上级|领导|负责人|运维|ceo|cto|admin|administrator|root|boss|owner)[^\\n]{0,60}(?:紧急|立刻|马上|立即|尽快|现在就|不得拖延|特批|urgent|immediately|right now|asap|at once)",
+    "flags": "i",
+    "exts": [".md", ".txt", ".json", ".html", ".htm", ".yml", ".yaml"],
+    "max": 30
+  }
+}

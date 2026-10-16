@@ -1,0 +1,13 @@
+{
+  "name": "kb-site",
+  "private": true,
+  "version": "1.2.0",
+  "description": "公开产品文档站点的静态生成配置",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node serve.mjs"
+  },
+  "devDependencies": {
+    "marked": "^12.0.0"
+  }
+}
