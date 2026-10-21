@@ -151,3 +151,7 @@ bash tests/run.sh                # 双向验证 + 样本真实性 + 溯源 + 扫
 ## License
 
 MIT © 深鲸 DeepWhale
+
+---
+
+<p align="right"><a href="https://deepwhale.org.cn"><img src="https://www.deepwhale.org.cn/images/badge/deepwhale-badge.png" alt="powered by dwh" height="20"></a></p>
