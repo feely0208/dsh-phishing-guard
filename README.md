@@ -1,5 +1,7 @@
 # @deepwhale-cn/dsh-phishing-guard
 
+[![dshfind 收录](https://dshfind.com/api/badge/feely0208/dsh-phishing-guard?lang=zh)](https://dshfind.com/zh/plugins/feely0208/dsh-phishing-guard)
+
 **喂给 agent 之前，先看看这些内容里有没有人在给它下命令。**
 
 **关键词**：提示注入 · 间接注入 · 知识库污染 · 指令覆盖 · 隐藏文本 · 零宽字符 · system 角色 · 社工话术
